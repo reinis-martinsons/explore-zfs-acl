@@ -1,1 +1,2 @@
 //[bin/getfacl/getfacl.c]
+acl = acl_get_file(path, type);
