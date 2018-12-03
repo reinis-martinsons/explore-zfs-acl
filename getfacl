@@ -4,3 +4,27 @@
 //[lib/libc/posix1e/acl_get.c]
 acl_t
 acl_get_file(const char *path_p, acl_type_t type)
+{
+	acl_t	aclp;
+	int	error;
+
+	aclp = acl_init(ACL_MAX_ENTRIES);
+	if (aclp == NULL)
+		return (NULL);
+
+	type = _acl_type_unold(type);
+error = __acl_get_file(path_p, type, &aclp->ats_acl);
+//________________________________________________________________________
+//[sys/kern/vfs_acl.c]
+//________________________________________________________________________
+//[lib/libc/posix1e/acl_get.c]
+	if (error) {
+		acl_free(aclp);
+		return (NULL);
+	}
+
+	aclp->ats_acl.acl_maxcnt = ACL_MAX_ENTRIES;
+	_acl_brand_from_type(aclp, type);
+
+return (aclp);
+}
