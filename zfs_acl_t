@@ -1,1 +1,48 @@
-
+//[sys/cddl/contrib/opensolaris/uts/common/fs/zfs/sys/zfs_acl.h]
+typedef struct zfs_acl {
+	uint64_t	z_acl_count;	/* Number of ACEs */
+	size_t		z_acl_bytes;	/* Number of bytes in ACL */
+	uint_t		z_version;	/* version of ACL */
+	void		*z_next_ace;	/* pointer to next ACE */
+	uint64_t	z_hints;	/* ACL hints (ZFS_INHERIT_ACE ...) */
+	zfs_acl_node_t	*z_curr_node;	/* current node iterator is handling */
+//______________________________________________________________________________
+typedef struct zfs_acl_node {
+	list_node_t	z_next;		/* Next chunk of ACEs */
+//______________________________________________________________________________
+//[sys/cddl/contrib/opensolaris/uts/common/sys/list.h]
+typedef struct list_node list_node_t;
+//______________________________________________________________________________
+//[sys/cddl/contrib/opensolaris/uts/common/sys/list_impl.h]
+struct list_node {
+	struct list_node *list_next;
+	struct list_node *list_prev;
+};
+//______________________________________________________________________________
+//[sys/cddl/contrib/opensolaris/uts/common/sys/list.h]
+//______________________________________________________________________________
+//[sys/cddl/contrib/opensolaris/uts/common/fs/zfs/sys/zfs_acl.h]
+	void		*z_acldata;	/* pointer into actual ACE(s) */
+	void		*z_allocdata;	/* pointer to kmem allocated memory */
+	size_t		z_allocsize;	/* Size of blob in bytes */
+	size_t		z_size;		/* length of ACL data */
+	uint64_t	z_ace_count;	/* number of ACEs in this acl node */
+	int		z_ace_idx;	/* ace iterator positioned on */
+} zfs_acl_node_t;
+//______________________________________________________________________________
+	list_t		z_acl;		/* chunks of ACE data */
+//[sys/cddl/contrib/opensolaris/uts/common/sys/list.h]
+typedef struct list list_t;
+//______________________________________________________________________________
+//______________________________________________________________________________
+//[sys/cddl/contrib/opensolaris/uts/common/sys/list_impl.h]
+struct list {
+	size_t	list_size;
+	size_t	list_offset;
+	struct list_node list_head;
+};
+//______________________________________________________________________________
+//______________________________________________________________________________
+//[sys/cddl/contrib/opensolaris/uts/common/fs/zfs/sys/zfs_acl.h]
+	acl_ops_t	z_ops;		/* ACL operations */
+} zfs_acl_t;
