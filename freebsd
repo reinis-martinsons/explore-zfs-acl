@@ -76,3 +76,6 @@ typedef struct vsecattr {
 ______________________________________________________________________________________
 /sys/cddl/contrib/opensolaris/uts/common/fs/zfs/zfs_acl.c
 zfs_getacl(znode_t *zp, vsecattr_t *vsecp, boolean_t skipaclchk, cred_t *cr)
+/* when vsecp->vsa_mask also includes VSA_ACE_ACLFLAGS, the respective flags are
+ * converted from zp->z_pflags and copied to vsecp->vsa_aclflags
+*/
