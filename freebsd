@@ -36,4 +36,22 @@ struct acl_entry {
 	/* NFSv4 ACL inheritance.  Unused in POSIX.1e ACLs. */
 	acl_flag_t		ae_flags;
 };
+______________________________________________________________________________________
+/sys/kern/vfs_acl.c
+sys___acl_get_file(struct thread *td, struct __acl_get_file_args *uap)
 
+kern___acl_get_path(struct thread *td, const char *path, acl_type_t type,
+struct acl *aclp, int follow)
+
+vacl_get_acl(struct thread *td, struct vnode *vp, acl_type_t type,
+struct acl *aclp)
+______________________________________________________________________________________
+/sys/cddl/contrib/opensolaris/uts/common/fs/zfs/zfs_vnops.c
+zfs_freebsd_getacl(ap)
+	struct vop_getacl_args /* {
+		struct vnode *vp;
+		acl_type_t type;
+		struct acl *aclp;
+		struct ucred *cred;
+		struct thread *td;
+	} */ *ap;
