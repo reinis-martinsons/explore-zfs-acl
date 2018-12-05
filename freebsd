@@ -62,3 +62,15 @@ zfs_freebsd_getacl(ap)
 
 zfs_getsecattr(vnode_t *vp, vsecattr_t *vsecp, int flag, cred_t *cr,
 caller_context_t *ct)
+
+/sys/cddl/contrib/opensolaris/uts/common/sys/vnode.h
+typedef struct vsecattr {
+	uint_t		vsa_mask;	/* See below */
+	int		vsa_aclcnt;	/* ACL entry count */
+	void		*vsa_aclentp;	/* pointer to ACL entries */
+	int		vsa_dfaclcnt;	/* default ACL entry count */
+	void		*vsa_dfaclentp;	/* pointer to default ACL entries */
+	size_t		vsa_aclentsz;	/* ACE size in bytes of vsa_aclentp */
+	uint_t		vsa_aclflags;	/* ACE ACL flags */
+} vsecattr_t;
+
