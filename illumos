@@ -17,3 +17,21 @@ typedef enum acl_type {
 	ACLENT_T = 0,			/* Used by the UFS file system */
 	ACE_T = 1			/* Used by the ZFS and NFSv4 file systems */
 } acl_type_t;
+______________________________________________________________________________________
+/usr/src/uts/common/syscall/acl.c
+acl(const char *fname, int cmd, int nentries, void *aclbufp)
+/* when cmd is ACE_GETACL, acl system call sets vsecattr.vsa_mask = VSA_ACE | VSA_ACECNT
+ * when calling VOP_GETSECATTR and passing &vsecattr. then only vsecattr.vsa_aclentp
+ * is copied out to aclbufp
+ */
+ 
+/usr/src/uts/common/sys/vnode.h
+typedef struct vsecattr {
+	uint_t		vsa_mask;	/* See below */
+	int		vsa_aclcnt;	/* ACL entry count */
+	void		*vsa_aclentp;	/* pointer to ACL entries */
+	int		vsa_dfaclcnt;	/* default ACL entry count */
+	void		*vsa_dfaclentp;	/* pointer to default ACL entries */
+	size_t		vsa_aclentsz;	/* ACE size in bytes of vsa_aclentp */
+	uint_t		vsa_aclflags;	/* ACE ACL flags */
+} vsecattr_t;
