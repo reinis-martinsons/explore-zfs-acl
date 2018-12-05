@@ -35,3 +35,13 @@ typedef struct vsecattr {
 	size_t		vsa_aclentsz;	/* ACE size in bytes of vsa_aclentp */
 	uint_t		vsa_aclflags;	/* ACE ACL flags */
 } vsecattr_t;
+______________________________________________________________________________________
+/usr/src/uts/common/fs/zfs/zfs_vnops.c
+zfs_getsecattr(vnode_t *vp, vsecattr_t *vsecp, int flag, cred_t *cr,
+caller_context_t *ct)
+______________________________________________________________________________________
+/usr/src/uts/common/fs/zfs/zfs_acl.c
+zfs_getacl(znode_t *zp, vsecattr_t *vsecp, boolean_t skipaclchk, cred_t *cr)
+/* when vsecp->vsa_mask also includes VSA_ACE_ACLFLAGS, the respective flags are
+ * converted from zp->z_pflags and copied to vsecp->vsa_aclflags
+ */
