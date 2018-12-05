@@ -3,14 +3,23 @@ acl_t
 acl_get_file(const char *path_p, acl_type_t type)
 
 /sys/sys/acl.h
-typedef struct acl_t_struct *acl_t;
+typedef int	acl_type_t;
+/*
+ * Possible valid values for acl_type_t arguments.  First two
+ * are provided only for backwards binary compatibility.
+ */
+#define	ACL_TYPE_ACCESS_OLD	0x00000000
+#define	ACL_TYPE_DEFAULT_OLD	0x00000001
+#define	ACL_TYPE_ACCESS		0x00000002
+#define	ACL_TYPE_DEFAULT	0x00000003
+#define	ACL_TYPE_NFS4	0x00000004
 
+typedef struct acl_t_struct *acl_t;
 struct acl_t_struct {
 	struct acl		ats_acl;
 	int			ats_cur_entry;
 	int			ats_brand;
 };
-
 struct acl {
 	unsigned int		acl_maxcnt;
 	unsigned int		acl_cnt;
@@ -18,3 +27,13 @@ struct acl {
 	int			acl_spare[4];
 	struct acl_entry	acl_entry[ACL_MAX_ENTRIES];
 };
+struct acl_entry {
+	acl_tag_t		ae_tag;
+	uid_t			ae_id;
+	acl_perm_t		ae_perm;
+	/* NFSv4 entry type, "allow" or "deny".  Unused in POSIX.1e ACLs. */
+	acl_entry_type_t	ae_entry_type;
+	/* NFSv4 ACL inheritance.  Unused in POSIX.1e ACLs. */
+	acl_flag_t		ae_flags;
+};
+
