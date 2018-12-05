@@ -5,7 +5,7 @@ acl_get(const char *path, int get_flag, acl_t **aclp)
 /usr/src/uts/common/sys/acl.h
 typedef struct acl_info acl_t;
 
-usr/src/uts/common/sys/acl_impl.h
+/usr/src/uts/common/sys/acl_impl.h
 struct acl_info {
 	acl_type_t acl_type;		/* style of acl */
 	int acl_cnt;			/* number of acl entries */
