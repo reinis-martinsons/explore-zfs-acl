@@ -1,0 +1,20 @@
+/lib/libc/posix1e/acl_get.c
+acl_t
+acl_get_file(const char *path_p, acl_type_t type)
+
+/sys/sys/acl.h
+typedef struct acl_t_struct *acl_t;
+
+struct acl_t_struct {
+	struct acl		ats_acl;
+	int			ats_cur_entry;
+	int			ats_brand;
+};
+
+struct acl {
+	unsigned int		acl_maxcnt;
+	unsigned int		acl_cnt;
+	/* Will be required e.g. to implement NFSv4.1 ACL inheritance. */
+	int			acl_spare[4];
+	struct acl_entry	acl_entry[ACL_MAX_ENTRIES];
+};
