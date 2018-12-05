@@ -55,3 +55,10 @@ zfs_freebsd_getacl(ap)
 		struct ucred *cred;
 		struct thread *td;
 	} */ *ap;
+/* zfs_freebsd_getacl sets vsecattr.vsa_mask = VSA_ACE | VSA_ACECNT
+ * when calling zfs_getsecattr and passing &vsecattr. then only vsecattr.vsa_aclentp
+ * is copied to ap->a_aclp
+*/
+
+zfs_getsecattr(vnode_t *vp, vsecattr_t *vsecp, int flag, cred_t *cr,
+caller_context_t *ct)
