@@ -1,5 +1,6 @@
 /usr/src/lib/libsec/common/aclutils.c
 acl_get(const char *path, int get_flag, acl_t **aclp)
+/* acl_get only sets ACL_IS_DIR or ACL_IS_TRIVIAL in aclp->acl_flags */
 
 /usr/src/uts/common/sys/acl.h
 typedef struct acl_info acl_t;
@@ -12,3 +13,7 @@ struct acl_info {
 	int acl_flags;			/* special flags about acl */
 	void *acl_aclp;			/* the acl */
 };
+typedef enum acl_type {
+	ACLENT_T = 0,			/* Used by the UFS file system */
+	ACE_T = 1			/* Used by the ZFS and NFSv4 file systems */
+} acl_type_t;
