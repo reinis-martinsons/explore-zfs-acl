@@ -73,4 +73,6 @@ typedef struct vsecattr {
 	size_t		vsa_aclentsz;	/* ACE size in bytes of vsa_aclentp */
 	uint_t		vsa_aclflags;	/* ACE ACL flags */
 } vsecattr_t;
-
+______________________________________________________________________________________
+/sys/cddl/contrib/opensolaris/uts/common/fs/zfs/zfs_acl.c
+zfs_getacl(znode_t *zp, vsecattr_t *vsecp, boolean_t skipaclchk, cred_t *cr)
